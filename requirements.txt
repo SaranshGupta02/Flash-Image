@@ -1,0 +1,8 @@
+streamlit
+langchain
+langchain-community
+langchain-openai
+google-generativeai
+psycopg2-binary
+langchain-community
+google-generativeai
