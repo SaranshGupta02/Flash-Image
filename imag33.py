@@ -39,12 +39,12 @@ with container:
     uploaded_file = st.file_uploader("Choose an image (JPG/PNG)", type=["jpg", "png"], help="Supported formats: JPG, PNG")
 
     st.subheader("📝 Describe the Modification")
-    text_input = st.text_area("Enter your prompt:", "Change the color of the clothes of PM Modi to yellow")
+    text_input = st.text_area("Enter your prompt:")
 
     # Display uploaded image
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
 
     # Button for generating image
     st.markdown("<br>", unsafe_allow_html=True)
@@ -72,7 +72,7 @@ if generate_btn:
                     elif part.inline_data:
                         result_image = Image.open(BytesIO(part.inline_data.data))
                         st.subheader("🖼️ Modified Image")
-                        st.image(result_image, caption="Modified Image", use_column_width=True)
+                        st.image(result_image, caption="Modified Image", use_container_width=True)
             except Exception as e:
                 st.error(f"❌ Error: {str(e)}")
 
