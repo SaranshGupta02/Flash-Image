@@ -44,7 +44,7 @@ with container:
     # Display uploaded image
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image", use_cotainer_width=True)
 
     # Button for generating image
     st.markdown("<br>", unsafe_allow_html=True)
