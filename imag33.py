@@ -15,7 +15,7 @@ st.set_page_config(page_title="AI Image Editor", page_icon="🎨", layout="cente
 # Sidebar for API key input
 st.sidebar.title("🔑 Settings")
 st.sidebar.write("Enter your API key to use the service.")
-api_key = st.sidebar.text_input("Google API Key", type="password")
+api_key = st.sidebar.text_input("Gemini API Key", type="password")
 
 # Main UI container
 st.markdown("""
