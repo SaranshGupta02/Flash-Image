@@ -80,6 +80,6 @@ if generate_btn:
 st.markdown("""
     <div style='max-width: 800px; margin: auto; text-align: center;'>
         <hr>
-        <p style='font-size: 14px;'>Developed bY BuildFastWithAI with ❤️</p>
+        <p style='font-size: 14px;'>Developed By BuildFastWithAI with ❤️</p>
     </div>
     """, unsafe_allow_html=True)
