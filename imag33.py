@@ -41,10 +41,15 @@ with container:
     st.subheader("📝 Describe the Modification")
     text_input = st.text_area("Enter your prompt:")
 
-    # Display uploaded image if available
+    # Create columns to display images
+    col1, col2 = st.columns(2)
+
+    # Display uploaded image in left column if available
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        col1.image(image, caption="📸 Uploaded Image", use_column_width=True)
+    else:
+        image = None
 
     # Button for generating image
     st.markdown("<br>", unsafe_allow_html=True)
@@ -59,6 +64,7 @@ if generate_btn:
     else:
         with st.spinner("⏳ Generating image..."):
             try:
+                # Send the uploaded image and text input to the API
                 response = client.models.generate_content(
                     model="gemini-2.0-flash-exp-image-generation",
                     contents=[text_input, image],
@@ -76,16 +82,11 @@ if generate_btn:
                     elif part.inline_data:
                         modified_image = Image.open(BytesIO(part.inline_data.data))
                 
-                # Show images side by side with columns
+                # Display modified image in right column if generated
                 if modified_image:
-                    col1, col2 = st.columns(2)
-
-                    with col1:
-                        st.image(image, caption="📸 Original Image", use_column_width=True)
-                    with col2:
-                        st.image(modified_image, caption="🎨 Modified Image", use_column_width=True)
+                    col2.image(modified_image, caption="🎨 Modified Image", use_column_width=True)
                 
-                # Show AI-generated description below images
+                # Show AI-generated description below images if available
                 if description_text:
                     st.markdown("<hr>", unsafe_allow_html=True)
                     st.subheader("📝 Description of Modification")
