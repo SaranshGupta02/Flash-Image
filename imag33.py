@@ -38,9 +38,6 @@ with container:
     st.subheader("📤 Upload an Image")
     uploaded_file = st.file_uploader("Choose an image (JPG/PNG)", type=["jpg", "png"], help="Supported formats: JPG, PNG")
 
-    st.subheader("📝 Describe the Modification")
-    text_input = st.text_area("Enter your prompt:")
-
     # Create columns to display images
     col1, col2 = st.columns(2)
 
@@ -51,9 +48,25 @@ with container:
     else:
         image = None
 
-    # Button for generating image
-    st.markdown("<br>", unsafe_allow_html=True)
-    generate_btn = st.button("✨ Generate Image", use_container_width=True)
+# 📚 Prompt hint section
+st.subheader("💡 Prompt Ideas")
+st.code(
+    """
+    Try: Change the color of clothes to red.
+    Try: Remove background from image.
+    Try: Add a blur effect to the background.
+    Try: Make the image look vintage or black & white.
+    """,
+    language="text"
+)
+
+# 📝 Describe the Modification section
+st.subheader("📝 Describe the Modification")
+text_input = st.text_area("Enter your prompt:", placeholder="E.g., Change background to white or Add a blur effect to the background...")
+
+# Button for generating image
+st.markdown("<br>", unsafe_allow_html=True)
+generate_btn = st.button("✨ Generate Image", use_container_width=True)
 
 # Generate modified image
 if generate_btn:
