@@ -32,7 +32,7 @@ if api_key:
 else:
     st.sidebar.warning("⚠️ Please enter a valid API key to proceed.")
 
-# Centered content container
+# Content container
 container = st.container()
 with container:
     st.subheader("📤 Upload an Image")
@@ -41,10 +41,10 @@ with container:
     st.subheader("📝 Describe the Modification")
     text_input = st.text_area("Enter your prompt:")
 
-    # Display uploaded image
+    # Display uploaded image if available
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_container_width =True)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # Button for generating image
     st.markdown("<br>", unsafe_allow_html=True)
@@ -65,14 +65,32 @@ if generate_btn:
                     config=types.GenerateContentConfig(response_modalities=['Text', 'Image'])
                 )
                 
+                # Initialize variables to hold response data
+                modified_image = None
+                description_text = None
+
+                # Loop through API response parts
                 for part in response.candidates[0].content.parts:
                     if part.text:
-                        st.success("✅ AI Response:")
-                        st.write(part.text)
+                        description_text = part.text
                     elif part.inline_data:
-                        result_image = Image.open(BytesIO(part.inline_data.data))
-                        st.subheader("🖼️ Modified Image")
-                        st.image(result_image, caption="Modified Image", use_container_width=True)
+                        modified_image = Image.open(BytesIO(part.inline_data.data))
+                
+                # Show images side by side with columns
+                if modified_image:
+                    col1, col2 = st.columns(2)
+
+                    with col1:
+                        st.image(image, caption="📸 Original Image", use_column_width=True)
+                    with col2:
+                        st.image(modified_image, caption="🎨 Modified Image", use_column_width=True)
+                
+                # Show AI-generated description below images
+                if description_text:
+                    st.markdown("<hr>", unsafe_allow_html=True)
+                    st.subheader("📝 Description of Modification")
+                    st.write(description_text)
+                
             except Exception as e:
                 st.error(f"❌ Error: {str(e)}")
 
