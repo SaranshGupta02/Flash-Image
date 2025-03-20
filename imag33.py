@@ -44,7 +44,7 @@ with container:
     # Display uploaded image in left column if available
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        col1.image(image, caption="📸 Uploaded Image", use_column_width=True)
+        col1.image(image, caption="📸 Uploaded Image", use_container_width=True)
     else:
         image = None
 
@@ -97,7 +97,7 @@ if generate_btn:
                 
                 # Display modified image in right column if generated
                 if modified_image:
-                    col2.image(modified_image, caption="🎨 Modified Image", use_column_width=True)
+                    col2.image(modified_image, caption="🎨 Modified Image", use_container_width=True)
                 
                 # Show AI-generated description below images if available
                 if description_text:
